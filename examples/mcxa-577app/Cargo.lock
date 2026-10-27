@@ -330,6 +330,7 @@ dependencies = [
  "ec-slimloader-state",
  "embassy-mcxa",
  "embassy-sync 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "embassy-time 0.5.1 (git+https://github.com/embassy-rs/embassy?rev=f0fd6e2a8e9c505290498e316ad2bdda8b94da5e)",
  "embedded-storage-async",
  "fault-rejection",
  "heapless 0.8.0",

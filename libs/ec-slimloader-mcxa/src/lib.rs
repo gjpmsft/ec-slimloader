@@ -5,6 +5,9 @@ pub mod error;
 pub mod jump;
 pub mod verification;
 
+#[cfg(any(test, all(target_os = "none", feature = "mcxa5xx")))]
+mod nor_ready;
+
 pub use board::{ExternalStorage, Mcxa, McxaConfig, Partitions, SlotPartition, StatePartition};
 pub use embassy_mcxa::sgi;
 pub use embassy_mcxa::sgi::hash::{BlockingHasher, HashMode, HashOptions, HashSize, StreamingHasher};

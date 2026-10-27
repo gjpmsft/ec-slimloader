@@ -51,6 +51,17 @@ Finally, your application needs to also work with the state journal to:
 
 For a full tour on how to use this framework, please refer to the `examples/rt685s` folder.
 
+## MCXA startup readiness
+
+On MCXA, an MCU reset does not necessarily interrupt an external NOR erase or
+program operation. Before loading the boot journal, the backend polls status
+register WIP using the configured Read Status LUT. A shared five-second deadline
+bounds both busy polling and controller-command waits, allowing the supported
+parts' sector/block erases to finish. A timeout or command error stops boot with
+an explicit error instead of interpreting unavailable journal data as an empty
+journal. This gate does not reset the flash, erase the journal, or change flash
+geometry; nor does it bound subsequent HAL program/erase operations.
+
 ## Quick guide
 This guide details how to use this repository on the NXP MIMXRT685S-EVK. First step is compiling the bootloader and application:
 

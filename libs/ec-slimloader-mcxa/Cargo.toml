@@ -19,6 +19,7 @@ partition-manager-macros = { workspace = true }
 static_cell = { workspace = true }
 embassy-sync = { workspace = true }
 embassy-mcxa = { workspace = true, features = ["rt", "unstable-pac"] }
+embassy-time = { workspace = true }
 embedded-storage-async = { workspace = true }
 
 ec-slimloader = { path = "../ec-slimloader", default-features = false }

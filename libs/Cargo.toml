@@ -37,6 +37,7 @@ partition-manager-macros = { git = "https://github.com/OpenDevicePartnership/emb
 embassy-sync = "0.8.0"
 embassy-futures = "0.1.0"
 embassy-mcxa = { git = "https://github.com/embassy-rs/embassy", rev = "f0fd6e2a8e9c505290498e316ad2bdda8b94da5e", default-features = false }
+embassy-time = { git = "https://github.com/embassy-rs/embassy", rev = "f0fd6e2a8e9c505290498e316ad2bdda8b94da5e", default-features = false }
 
 [patch.crates-io]
 embassy-time-driver = { git = "https://github.com/embassy-rs/embassy", rev = "f0fd6e2a8e9c505290498e316ad2bdda8b94da5e" }

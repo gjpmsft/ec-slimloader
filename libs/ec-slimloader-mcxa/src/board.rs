@@ -446,7 +446,6 @@ impl<C: McxaConfig + BootStatePolicy> Board for Mcxa<C> {
                 MX25U_FLASH_CONFIG,
             )
             .unwrap_or_else(|_| panic!("FlexSPI init failed"));
-            let external = ExternalStorage::new(FlexspiNor::new(flexspi));
             // Port B only: disable A1 (size=0) so B1 starts at SFAR=0,
             // matching the driver's write_enable/read_status which use SFAR=0.
             // Port A (EVK) needs no post-init — A1 is chip_index=0 and SFAR=0
@@ -468,7 +467,11 @@ impl<C: McxaConfig + BootStatePolicy> Board for Mcxa<C> {
                     .modify(|r| r.set_swreset(pac::flexspi::Swreset::Val1));
                 while pac::FLEXSPI0.mcr0().read().swreset() == pac::flexspi::Swreset::Val1 {}
             }
-            external
+            if let Err(error) = crate::nor_ready::wait_for_nor_ready() {
+                defmt_or_log::error!("External NOR readiness failed: {:?}", error);
+                panic!("External NOR is not ready for journal access");
+            }
+            ExternalStorage::new(FlexspiNor::new(flexspi))
         };
         #[cfg(not(all(target_os = "none", feature = "mcxa5xx")))]
         let external = ExternalStorage::init();
